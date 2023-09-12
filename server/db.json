@@ -1,0 +1,104 @@
+{
+  "users": [
+    {
+      "id": "0",
+      "name": "Dmitriy",
+      "password": "12345",
+      "years": "36",
+      "position": "react-frontend-developer",
+      "contacts": [
+        {
+          "contactId": "100",
+          "name": "Александр Гончаров",
+          "emails": ["example@email.ru"],
+          "phones": ["73515555", "89823234890"]
+        },
+        {
+          "contactId": "101",
+          "name": "Виктор Иванов",
+          "emails": ["example1@email.ru"],
+          "phones": ["73514444", "89853234890"]
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "Petr",
+      "password": "54321",
+      "years": "30",
+      "position": "backend-developer",
+      "contactList": ["3","4","5","6","7"]
+    },
+    {
+      "id": "2",
+      "name": "Aleksandr",
+      "password": "password",
+      "years": "36",
+      "position": "team-lead",
+      "contactList": ["1","2","3","4","5"]
+    },
+    {
+      "id": "3",
+      "name": "Viktor",
+      "years": "30",
+      "position": "manager",
+      "contactList": ["1","2","6","7"]
+    },
+    {
+      "id": "4",
+      "name": "Alina",
+      "years": "36",
+      "position": "manager",
+      "contactList": ["1","3","4","6","7"]
+    },
+    {
+      "id": "5",
+      "name": "Natalya",
+      "years": "30",
+      "position": "backend-developer",
+      "contactList": ["1","2","4","5","6","7"]
+    },
+    {
+      "id": "6",
+      "name": "Aleksey",
+      "years": "46",
+      "position": "engineer",
+      "contactList": ["1","2","3","4","6","7"]
+    },
+    {
+      "id": "7",
+      "name": "Elena",
+      "years": "23",
+      "position": "manager",
+      "contactList": ["1","2","3","4","5","6"]
+    },
+    {
+      "id": "8",
+      "name": "Evgeniy",
+      "years": "31",
+      "position": "react-frontend-developer",
+      "contactList": ["1","2","3","5","6","7"]
+    },
+    {
+      "id": "9",
+      "name": "Ivan",
+      "years": "20",
+      "position": "programmer",
+      "contactList": ["1","2","3","4","5","6","7"]
+    },
+    {
+      "id": "10",
+      "name": "Fedor",
+      "years": "26",
+      "position": "react-frontend-developer",
+      "contactList": ["1","2","3"]
+    },
+    {
+      "id": "11",
+      "name": "Sergey",
+      "years": "30",
+      "position": "backend-developer",
+      "contactList": ["4","5","6","7"]
+    }
+  ]
+}
