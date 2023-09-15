@@ -1,0 +1,59 @@
+.menu {
+  position: relative;
+  display: flex; 
+  width: fit-content;
+  width: 110px;
+  margin-left: auto;
+  margin-right: 0;
+  font-size: 14px;
+  background-color: #20345c;
+  z-index: 0;
+}
+
+.menuWrapper {
+  position: relative;
+  height: 100%;
+  display: flex; 
+  margin-left: auto;
+  font-size: 14px;
+  background-color: #20345c;
+  z-index: 0;
+}
+
+.userName {
+  padding-right: 10px;
+}
+
+.item {
+  background-color:  #0E0F34; /*  #001529; */
+  flex: min-content;
+  color: lightgoldenrodyellow !important;
+  /* user-select: none; */
+  pointer-events: visiblePainted;
+  /* border-right: #acadce 1px solid; */
+  /* z-index: 1; */
+}
+/* .item:nth-child(1) {
+  border-left: #acadce 1px solid;
+
+} */
+.item:hover {
+  background-color: #1890ff !important;
+}
+.avatar {
+  background: lightgoldenrodyellow; 
+  color: black;
+  z-index: 0;
+}
+.title {
+  padding-left: 10px;
+}
+.icon {
+  text-align: center;
+  line-height: 100%; 
+  vertical-align: middle;
+}
+.settings {
+  background: #464795;
+}
+

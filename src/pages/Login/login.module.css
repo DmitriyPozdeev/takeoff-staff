@@ -1,0 +1,9 @@
+.title {
+  text-align: center;
+}
+.border {
+  display: block;
+  padding: 20px;
+  border: 1px solid lightblue;
+  border-radius: 5px;
+}

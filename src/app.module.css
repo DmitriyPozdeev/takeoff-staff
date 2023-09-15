@@ -1,0 +1,30 @@
+.layout {
+  min-height: 100vh;
+}
+.header {
+  background-color: #282c34;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.footer {
+  background-color: #282c34;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: right;
+  font-size: 14px;
+  color: white;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
