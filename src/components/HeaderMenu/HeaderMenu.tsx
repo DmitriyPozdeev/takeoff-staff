@@ -1,79 +1,63 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import {Menu, Avatar, Popconfirm} from 'antd';
 import { observer } from 'mobx-react-lite';
 import styles from './headerMenu.module.css';
-import { UserOutlined,LoginOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { useNavigate, useLocation } from "react-router-dom";
 import { useStore } from '../../stores/rootStore';
-
-const { Item } = Menu;
+import type { MenuProps } from 'antd';
+import { LoginOutlined, UserOutlined} from '@ant-design/icons';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const HeaderMenu: FC = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const {userStore} = useStore();
   const {isLogin, user, logout} = userStore;
-
-  return (
-    <div className={styles.menuWrapper}>
-      <span className={styles.userName}>
-        {user?.firstname}
-      </span>
-      <Menu 
-        mode='horizontal' 
-        className={styles.menu}
-      >   
-      <Item
-        // onClick={() => isLogin ? ()=>{} : setSelectedKey(['']) }
-        className={styles.item}
-        style={
-          location.pathname === '/login' ? {background: '#1890ff'} : {} 
-        }
-        key={1} 
-      > 
-       
+  const navigate = useNavigate()
+  const menuItems: MenuProps['items'] = [
+    {
+      label: isLogin ? <span style={{color: '#fff'}}>{user?.firstname}</span> : <span style={{color: '#fff'}}>Вход</span>,
+      key: 'login',
+      className: styles.item,
+      icon: isLogin ? 
+        <Avatar 
+          className={styles.avatar}
+          icon={<UserOutlined 
+            style={{ fontSize: '16px', color: 'black' }} 
+            rev={undefined} 
+          />} 
+          size="small"
+        />
+       : 
+      <LoginOutlined 
+        style={{ fontSize: '16px', color: '#fff' }} 
+        rev={undefined}
+      />,
+      children: isLogin ? [
         {
-          isLogin ?
-            <Popconfirm
-              placement="bottomRight"
-              title="Хотите выйти?"
-              onConfirm={() => {
-                logout();
-                navigate('/login');
-              }}
-              okText="Да"
-              cancelText="Нет"
-            >
-              <div style={{height:'100%', borderRadius: '6px'}}>
-                <Avatar 
-                  icon={<UserOutlined style={{ fontSize: '20px' }} rev={undefined} />} 
-                  size="small"
-                  className={styles.avatar}
-                />
-                <span className={styles.title}>
-                  Выход
-                </span>
-              </div>
-             
-            </Popconfirm>
-          : 
-            <>
-              <Avatar 
-                icon={<LoginOutlined rev={undefined}/>} 
-                size="small"
-                className={styles.avatar}
-              />
-              <span className={styles.title}>
-                Вход
-              </span>
-              <Link to="/login"/>
-            </>
+          label: 'Список контактов',
+          key: 'contacts',
+          onClick: () => {
+            navigate('/contacts')
+          }
+        },
+        {
+          label: 'Выход',
+          key: 'exit',
+          onClick: () => {
+            navigate('/login')
+            logout()
+          }
         }
-      </Item>
-    </Menu>
-    </div>
-   
+      ] : []
+    }
+  ]
+  const isLoginPage = location.pathname === '/' || location.pathname === '/login' ? true : false;
+  return (
+    <Menu 
+      mode='horizontal' 
+      className={isLoginPage ? `${styles.menu} ${styles.menuActive}`: styles.menu }
+      items={menuItems}
+      selectedKeys={isLoginPage ? ['login'] : ['']}
+    />   
   ) 
  
 }

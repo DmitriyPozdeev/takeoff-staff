@@ -18,10 +18,10 @@ export enum RouteNames {
 }
 
 export const publicRoutes: Route[] = [
-  // {
-  //   path: RouteNames.ROOT,
-  //   component: HomeDashboard
-  // },
+  {
+    path: RouteNames.ROOT,
+    component: Login
+  },
   {
     path: RouteNames.LOGIN,
     component: Login

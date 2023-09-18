@@ -42,6 +42,39 @@ class ContactStore {
       })
     }
   }
+  deleteContact = async (id: string) => {
+    this.state = 'pending';
+    try {
+      const response = await contactDataService.deleteContact(id);
+      console.log(response)
+      runInAction(() => {
+        this.state = "done";
+      })
+    } catch(err) {
+      runInAction(() => {
+        this.state = 'error'
+        console.log(err)
+      })
+    }
+  }
+  addContact = async (name: string, phone: string, email: string) => {
+    this.state = 'pending';
+    try {
+      const response = await contactDataService.addContact(name, phone, email);
+      runInAction(() => {
+        this.state = "done";
+      })
+      return response
+    } catch(err) {
+      runInAction(() => {
+        this.state = 'error'
+        console.log(err)
+      })
+      
+    }
+   
+  }
+
   setContacts = (list: Contact[]) => {
     this.contacts = list;
   }

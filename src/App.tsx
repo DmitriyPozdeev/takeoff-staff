@@ -1,7 +1,6 @@
 import style from'./app.module.css';
 import { Layout } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import Login from './pages/Login/Login';
 import {Logo} from './components/Logo/Logo'
 import PageRouter from './components/PageRouter/PageRouter';
 import { useStore } from './stores/rootStore';

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Spin, Table, Typography } from 'antd';
+import { Button, Col, Form, Input, InputNumber, Popconfirm, Row, Space, Spin, Table, Typography } from 'antd';
 import { useStore } from '../../stores/rootStore';
 import { observer } from 'mobx-react-lite';
+import { EditOutlined, DeleteTwoTone, UserAddOutlined} from '@ant-design/icons';
+import styles from './contactList.module.css'
 
 interface Item {
   id: string;
@@ -42,7 +44,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
           rules={[
             {
               required: true,
-              message: `Please Input ${title}!`,
+              message: `Пожалуйста введите ${title}!`,
             },
           ]}
         >
@@ -58,8 +60,12 @@ const EditableCell: React.FC<EditableCellProps> = ({
 const ContactList: React.FC = () => {
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
+  const [tablePage, setTablePage] = useState(1)
   const {contactStore} = useStore();
-  const {contacts, state, getContactlist, setContacts, editContact} = contactStore;
+  const {
+    contacts, state, getContactlist, setContacts, 
+    editContact, deleteContact, addContact
+  } = contactStore;
 
   useEffect(() => {
     if(contacts.length === 0) {
@@ -74,11 +80,19 @@ const ContactList: React.FC = () => {
     setEditingKey(record.id);
   };
 
+  const deleteRow = (record: Item) => {
+    const newData = [...contacts];
+    const index = newData.findIndex((item) => record.id === item.id);
+    deleteContact(record.id);
+    newData.splice(index, 1);
+    setContacts(newData);
+  };
+
   const cancel = () => {
     setEditingKey('');
   };
 
-  const save = async (key: string) => {
+  const saveEdit = async (key: string) => {
     try {
       const row = (await form.validateFields()) as Item;
       editContact(key, row.name,row.phone,row.email);
@@ -101,6 +115,27 @@ const ContactList: React.FC = () => {
       console.log('Validate Failed:', errInfo);
     }
   };
+  const saveAdd = async () => {
+    try {
+      const row = (await form.validateFields()) as Item;
+      const newContact = await addContact(row.name,row.phone,row.email);
+      const index = contacts.findIndex((item) => item.id === 'temp')
+      const newData = [...contacts];
+      newData[index] = newContact as any
+      setContacts(newData as any);
+      form.setFieldsValue({ name: '', phone: '', email: '' });
+      setEditingKey('');
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
+  const cancelAdd = () => {
+    const index = contacts.findIndex((item) => item.id === 'temp')
+    const newData = [...contacts];
+    newData.splice(index,1)
+    setContacts(newData)
+    setEditingKey('')
+  }
 
   const columns = [
     {
@@ -124,21 +159,42 @@ const ContactList: React.FC = () => {
     {
       title: 'Действие',
       dataIndex: 'operation',
+      width: '180px',
       render: (_: any, record: Item) => {
-        const editable = isEditing(record);
+        const editable = isEditing(record) || record.id === 'temp';
+
         return editable ? (
           <span>
-            <Typography.Link onClick={() => save(record.id)} style={{ marginRight: 8 }}>
+            <Typography.Link onClick={() => record.id !== 'temp' ? saveEdit(record.id) : saveAdd()} style={{ marginRight: 8 }}>
               Сохранить
             </Typography.Link>
-            <Popconfirm title="Хотите отменить?" onConfirm={cancel}>
+            <Popconfirm 
+              title="Хотите отменить?" 
+              onConfirm={record.id === 'temp' ? cancelAdd : cancel}
+            >
               <a>Отмена</a>
             </Popconfirm>
           </span>
         ) : (
-          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
-          </Typography.Link>
+          <Space
+            size="large"
+          >
+            <EditOutlined
+              disabled={editingKey !== ''} 
+              onClick={() => edit(record)}
+              style={{fontSize: '16px'}}
+            />
+            <Popconfirm
+              title="Хотите удалить контакт?" 
+              onConfirm={() => deleteRow(record)}
+            >
+              <DeleteTwoTone
+              twoToneColor="red"
+                disabled={editingKey !== ''}
+                style={{fontSize: '16px'}}
+              />
+            </Popconfirm>
+          </Space>
         );
       },
     },
@@ -158,26 +214,67 @@ const ContactList: React.FC = () => {
       }),
     };
   });
-
+  const {Search} = Input;
   return (
     <Spin
       spinning={state==='pending'}
+      className={styles.content}
     >
-      <Form form={form} component={false}>
+      <Row justify="space-around">
+        <Col>
+          <Search
+            size='small'
+          />
+        </Col>
+        <Col>
+        <Button
+        className={styles.addButton}
+        size='small'
+        type='primary'
+        icon={<UserAddOutlined rev={undefined}/>}
+        disabled={editingKey !== ''}
+        onClick={() => {
+          form.setFieldsValue({ name: '', phone: '', email: '' });
+          const newContacts = [
+            ...contacts.slice(0, 8 * (tablePage-1)), 
+            {id: 'temp', ...form.getFieldsValue()}, 
+            ...contacts.slice(8 * (tablePage-1))
+          ];
+          setContacts(newContacts);
+          setEditingKey('temp');
+        }}
+      >
+        Добавить
+      </Button>
+        </Col>
+      
+      
+      </Row>
+    
+      <Form form={form} component={false} className={styles.form}>
         <Table
-        rowKey="id"
-            components={{
+          rowKey="id"
+          size='small'
+          components={{
             body: {
               cell: EditableCell,
             },
           }}
+          
           bordered
           dataSource={contacts}
           columns={mergedColumns}
           rowClassName="editable-row"
           pagination={{
-            onChange: cancel,
+            onChange: (page) => {
+              cancel()
+              setTablePage(page)
+            },
+            pageSize: 10,
+            current: tablePage
+            
           }}
+          
         />
       </Form>
     </Spin>

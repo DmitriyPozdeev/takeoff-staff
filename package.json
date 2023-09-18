@@ -18,7 +18,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "server": "json-server-auth server/db.json --port 5000 -r server/routes.json",
+    "server": "json-server-auth server/db.json --port 5000 -r server/routes.json --no-cors",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

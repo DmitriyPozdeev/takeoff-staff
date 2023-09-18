@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, {FC} from 'react';
+import {FC} from 'react';
 import {
   Routes,
   Route,
@@ -19,7 +19,7 @@ const PageRouter: FC = () => {
         key={Math.random()}
         path='/work'
         element={
-          <Auth requiredPermissions={['mechel']}>
+          <Auth>
             <AppTabs/>
           </Auth>
         }
