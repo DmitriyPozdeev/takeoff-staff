@@ -26,7 +26,7 @@ const Login: FC = () => {
     if(isLogin) {
       navigate( '/contacts', {replace: true});
     }
-  },[isLogin])
+  },[isLogin, navigate])
   
   const onFinishFailed = (errorInfo: ErrorInfo) => {
     setErrorMessage(errorInfo.errorFields[0].errors.join(' '));
