@@ -1,42 +1,16 @@
 .menu {
-  position: relative;
-  display: flex; 
-  height: 100%;
-  width: 110px;
+  height: inherit;
+  width:110px;
   margin-left: auto;
   margin-right: 0;
-  font-size: 14px;
-  background-color: #20345c;
- 
+  font-size: 15px;
+  background-color: #3a5386;
 }
-
-
-.item {
-  position: relative;
-  background-color:  #0E0F34; 
-  flex: min-content;
-  color: lightgoldenrodyellow !important;
-  pointer-events: visiblePainted;
-}
-
-.item:hover, .menuActive {
-  background-color: #1677ff !important;
-  transition: 0.4s;
+.menuTitle {
+  color: aliceblue;
 }
 .avatar {
   display: flex;
   justify-content: center;
   background: lightgoldenrodyellow; 
 }
-.title {
-  padding-left: 10px;
-}
-.icon {
-  text-align: center;
-  line-height: 100%; 
-  vertical-align: middle;
-}
-.settings {
-  background: #464795;
-}
-

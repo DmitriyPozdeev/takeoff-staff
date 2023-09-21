@@ -4,7 +4,7 @@ import ContactStore from "./contactStore";
 
 const rootStore = {
   userStore: new UserStore(),
-  contactStore: new ContactStore()
+  contactStore: new ContactStore(),
 };
 
 export const StoreContext = createContext(rootStore);

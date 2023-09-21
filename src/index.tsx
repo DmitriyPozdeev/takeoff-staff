@@ -6,7 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from 'antd';
 import ruRU from 'antd/locale/ru_RU';
+import { spy } from 'mobx';
 
+// spy((event) => {
+//   if(event.type === 'action') {
+//     console.log(event)
+//   }
+ 
+// })
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

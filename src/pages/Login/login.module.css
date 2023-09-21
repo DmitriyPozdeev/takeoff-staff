@@ -1,9 +1,19 @@
 .title {
   text-align: center;
 }
-.border {
-  display: block;
-  padding: 20px;
+.wrapper {
+  height: 100%;
+}
+.form { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 350px;
+  height: 100%;
   border: 1px solid lightblue;
-  border-radius: 5px;
+  padding: 15px;
+}
+.alertError {
+  position: absolute;
+  top: -50px;
 }

@@ -2,10 +2,18 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
+    align-items: center;
     max-height: 100%;
 }
 .addButton {
     position: relative;
     margin-bottom: 10px;
+}
+.searchRow {
+  margin-top: 10px;
+}
+.stateOperation {
+  position: absolute; 
+  right: 0;
 }

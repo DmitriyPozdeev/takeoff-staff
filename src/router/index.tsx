@@ -5,7 +5,7 @@ import NotFound from "../pages/NotFound/NotFound";
 
 export interface Route {
   path: string,
-  component: ComponentType,
+  component: JSX.Element,
   exact?: boolean,
   children?: JSX.Element
 }
@@ -20,22 +20,22 @@ export enum RouteNames {
 export const publicRoutes: Route[] = [
   {
     path: RouteNames.ROOT,
-    component: Login
+    component: <Login/>
   },
   {
     path: RouteNames.LOGIN,
-    component: Login
+    component: <Login/>
   },
   {
     path: RouteNames.NOTFOUND,
-    component: NotFound
+    component: <NotFound/>
   },
 ]
 
 export const privateRoutes: Route[] = [
   {
     path: RouteNames.CONTACTS,
-    component: ContactList
+    component: <ContactList/>
   },
 ]
 

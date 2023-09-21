@@ -1,18 +1,20 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import { User, UserResponse } from "../services/user.service";
 import userDataService from '../services/user.service';
+import errorDataService from "../services/error.service";
 
 class UserStore {
-  userData: UserResponse = null;
-  user: User = undefined;
-  state = 'done'
-  checkState = 'done'
-  accessToken = ''
-
+  userData?: UserResponse;
+  user?: User;
+  state = 'done';
+  checkState = 'done';
+  accessToken = '';
+  errorMessage: string = '';
+  
   constructor () {
     makeAutoObservable(this)
   }
-
+  
   login = async (name: string, password: string) => {
     this.state = 'pending';
     try {
@@ -22,12 +24,14 @@ class UserStore {
         localStorage.setItem(
           'accessToken', this.userData ? this.userData.accessToken : ''
         )
-        this.user = response?.user
+        this.user = response?.user;
         this.state = "done";
       })
-    } catch(err) {
+    } catch(err: any) {
       runInAction(() => {
         this.state = "error";
+        this.errorMessage = errorDataService.getErrorMessage(err.message)
+        console.log(err);
       })
     }
   }
@@ -42,20 +46,33 @@ class UserStore {
       return this.user
     } catch(err) {
       runInAction(() => {
-        this.userData = null;
+        this.userData = undefined;
         this.checkState = "error";
+        this.errorMessage = errorDataService.getErrorMessage(err)
       })
     }
   }
-
-  logout= () => {
+  logout = () => {
     this.user = undefined;
     localStorage.removeItem('accessToken')
   }
 
+  setUser = (user: User) => {
+    this.user = user;
+  }
+  setErrorMessage = (message: string) => {
+    runInAction(() => {
+      this.errorMessage = message;
+    })
+    
+  }
+  setState = (state: string) => {
+    this.state = state;
+  }
+
   get isLogin() {
     return this.user ? true : false;
-}
+  }
   
 }
 

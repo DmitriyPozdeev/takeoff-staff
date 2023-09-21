@@ -9,17 +9,16 @@ export type User = {
   email: string,
 } | undefined;
 
-export type UserResponse = {
+export interface UserResponse {
   user: User,
   accessToken: string;
-} | null
-
+}
 type DecodedToken = {
   email: string,
   exp: number,
   iat: number,
   sub: string
-} | string
+}  | string
 
 class UserDataService {
   async login(email: string, password: string) {
@@ -31,4 +30,5 @@ class UserDataService {
     return (await authHost.get<User>(`/users/${decodedToken.sub}`)).data;
   }
 };
-export default new UserDataService();
+const userDataService = new UserDataService();
+export default userDataService;
