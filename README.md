@@ -24,11 +24,11 @@ git clone https://github.com/DmitriyPozdeev/takeoff-staff
 
 **npm install -g serve** 
 
-4. Запустить продакшн сборку  
+3.1. Запустить продакшн сборку  
 
 **serve -s build**  
 
-5. Перейти в браузере по адресу  
+3.2. Перейти в браузере по адресу  
 http://localhost:3000/
 
 Данные для входа  
