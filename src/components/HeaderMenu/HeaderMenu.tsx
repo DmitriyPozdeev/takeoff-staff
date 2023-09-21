@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {Menu, Avatar, Popconfirm} from 'antd';
+import {Menu, Avatar} from 'antd';
 import { observer } from 'mobx-react-lite';
 import styles from './headerMenu.module.css';
 import { useStore } from '../../stores/rootStore';
@@ -60,7 +60,9 @@ const HeaderMenu: FC = () => {
         ] : []
     }
   ]
-  const isLoginPage = location.pathname === '/' || location.pathname === '/login' ? true : false;
+  const isLoginPage = location.pathname === '/' || 
+    location.pathname === '/login';
+
   return (
     <Menu 
       mode='horizontal' 
