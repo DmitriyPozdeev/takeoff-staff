@@ -20,16 +20,16 @@ git clone https://github.com/DmitriyPozdeev/takeoff-staff
 
 **npm run start**  
 
-3. Либо установить глобально пакет serve  
+* Либо установить глобально пакет serve  
 
 **npm install -g serve** 
 
-3.1. Запустить продакшн сборку  
+* Запустить продакшн сборку  
 
 **serve -s build**  
 
-3.2. Перейти в браузере по адресу  
-http://localhost:3000/
+* Перейти в браузере по адресу  
+**http://localhost:3000/**
 
 Данные для входа  
 
