@@ -17,7 +17,7 @@ function App() {
       return await check();
     }
     checkLogin();
-  }, [isLogin])
+  }, [isLogin, check])
 
   return (
     <Layout className={style.layout}>
