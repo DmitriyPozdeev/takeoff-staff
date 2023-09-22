@@ -1,29 +1,37 @@
 import { observer } from "mobx-react-lite";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useStore } from "../../stores/rootStore";
 import { Input } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
+import useDebounce from "../../hooks/useDebounce";
+
 
 const ContactsSearch: FC = () => {
+  const [value, setValue] = useState('')
   const {contactStore} = useStore();
   const {
-    searchValue, isEdit, setSearchValue, setTablePage
+    isEdit, foundContacts, setSearchValue, setTablePage
   } = contactStore;
 
+  const debouncedVal = useDebounce(value, 500);
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {value} = e.target;
+    setValue(value);
+  };
+  useEffect(() => {
+    setSearchValue(debouncedVal?.trim())
+    if(foundContacts.length > 0){
+      setTablePage(1);
+    }
+  }, [debouncedVal]);
     return (
       <Input
         allowClear
         size='small'
         disabled={isEdit}
         placeholder='Поиск'
-        onChange={(e) => {
-          const {value} = e.target;
-          setSearchValue(value);
-          if(value.trim()){
-            setTablePage(1);
-          }
-        }}
-        value={searchValue}
+        onChange={changeHandler}
+        value={value}
         addonBefore={<SearchOutlined/>} 
       />
     );
