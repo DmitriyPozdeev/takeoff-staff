@@ -6,6 +6,7 @@ import { useStore } from '../../stores/rootStore';
 import type { MenuProps } from 'antd';
 import { LoginOutlined, LogoutOutlined, UserOutlined, ContactsOutlined} from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { RouteNames } from '../../router';
 
 const HeaderMenu: FC = () => {
   const location = useLocation();
@@ -21,7 +22,8 @@ const HeaderMenu: FC = () => {
         <span className={styles.menuTitle}>
           Вход
         </span>,
-      key: 'login',
+      key: RouteNames.LOGIN,
+      theme: 'dark',
       icon: isLogin ? 
         <Avatar 
           className={styles.avatar}
@@ -41,10 +43,10 @@ const HeaderMenu: FC = () => {
         children: isLogin ? [
           {
             label: 'Список контактов',
-            key: 'contacts',
+            key: RouteNames.CONTACTS,
             icon: <ContactsOutlined/>,
             onClick: () => {
-              navigate('/contacts')
+              navigate(RouteNames.CONTACTS)
             }
           },
           {
@@ -53,22 +55,20 @@ const HeaderMenu: FC = () => {
             icon: <LogoutOutlined/>,
             className: styles.menuItem,
             onClick: () => {
-              navigate('/login')
+              navigate(RouteNames.LOGIN)
               logout()
             }
           }
         ] : []
     }
   ]
-  const isLoginPage = location.pathname === '/' || 
-    location.pathname === '/login';
-
+ 
   return (
     <Menu 
       mode='horizontal' 
       className={styles.menu}
+      selectedKeys={[location.pathname]}
       items={menuItems}
-      selectedKeys={isLoginPage ? ['login'] : ['']}
     />   
   ) 
  
