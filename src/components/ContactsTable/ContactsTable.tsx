@@ -23,7 +23,7 @@ const ContactsTable: FC<Props> = ({form}) => {
     setEditingKey('');
     setAlertIsVisible(false);
     getContactlist();
-  },[setEditingKey,setAlertIsVisible,getContactlist])
+  },[])
   
   const isEditing = (record: Contact) => record.id === editingKey;
 

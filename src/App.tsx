@@ -14,10 +14,10 @@ function App() {
 
   useEffect(() => {
     const checkLogin = async () => {
-      return await check();
+      await check();
     }
     checkLogin();
-  }, [isLogin, check])
+  }, [isLogin])
 
   return (
     <Layout className={style.layout}>
