@@ -20,16 +20,6 @@ class ContactDataService {
   async addContact(name: string, phone: string, email: string) {
     return (await authHost.post<Contact>(`/contacts`, {name, phone,email})).data;
   }
-
-  searchContacts(data: Contact[], searchValue: string, isSearch: boolean): Contact[]  {
-    return isSearch ? 
-      data.filter(({id,email,name,phone}) => {
-        return email?.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1 ||
-        name?.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1 ||
-        phone?.toLocaleLowerCase().indexOf(searchValue.toLocaleLowerCase()) > -1 ||
-        id === 'temp'
-      }) : data
-  }
 };
 const contactDataService = new ContactDataService()
 export default contactDataService; 
