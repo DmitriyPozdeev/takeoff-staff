@@ -4,7 +4,7 @@ import { FC, useEffect } from "react";
 import { useStore } from "../../stores/rootStore";
 import styles from "./contactsTable.module.css"
 import { Props } from "../../pages/ContactList/ContactList";
-import contactService, { Contact,  } from "../../services/contact.service";
+import { Contact,  } from "../../services/contact.service";
 import ContactCell from "../ContactCell/ContactCell";
 import ContactCellActions from "../ContactCellActions/ContactCellActions";
 import EditableCell from "../ContactEditableCell/ContactEditableCell";
@@ -14,8 +14,8 @@ import EditableCell from "../ContactEditableCell/ContactEditableCell";
 const ContactsTable: FC<Props> = ({form}) => {
   const {contactStore} = useStore();
   const {
-    editingKey,  tablePage, contacts, rowsOnPage, 
-    searchValue, isSearch, isEdit, getContactlist, 
+    editingKey, tablePage, rowsOnPage, 
+    isEdit, foundContacts, getContactlist, 
     setAlertIsVisible, setEditingKey, setTablePage, 
   } = contactStore;
 
@@ -92,8 +92,6 @@ const ContactsTable: FC<Props> = ({form}) => {
       }),
     };
   });
-
-  const {searchContacts} = contactService;
   return (
     <Form 
       form={form} 
@@ -111,9 +109,7 @@ const ContactsTable: FC<Props> = ({form}) => {
             cell: EditableCell,
           }
         }}
-        dataSource={
-          searchContacts(contacts, searchValue,isSearch)
-        }
+        dataSource={foundContacts}
         pagination={{
           onChange: (page) => {
             setEditingKey('')
