@@ -10,7 +10,11 @@ interface LoginValues {
   password: string
 }
 interface ErrorInfo {
-  errorFields: {errors: string[], name: string[], warnings: string[]}[],
+  errorFields: {
+    errors: string[], 
+    name: string[], 
+    warnings: string[]
+  }[],
   values: {email: string, password: string},
   outOfDate: boolean
 }
@@ -18,7 +22,9 @@ const {Item} = Form;
 
 const Login: FC = () => {
   const {userStore} = useStore();
-  const {login, state, checkState, isLogin, errorMessage, setErrorMessage} = userStore;
+  const {
+    login, state, checkState, isLogin, errorMessage, setErrorMessage
+  } = userStore;
 
   const navigate = useNavigate()
 
