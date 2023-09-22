@@ -22,7 +22,7 @@ class ContactStore {
     try {
       const response = await contactDataService.getContacts();
       runInAction(() => {
-        this.contacts = response;
+        this.contacts = this.sortByName(response);
         this.state = "done";
       })
     } catch(err) {
@@ -49,11 +49,11 @@ class ContactStore {
             ...editableContact,
             ...contact,
           });
-          this.contacts = newContacts;
+          this.contacts = this.sortByName(newContacts);
           this.editingKey = '';
         } else {
           newContacts.push(contact);
-          this.contacts = newContacts;
+          this.contacts = this.sortByName(newContacts);
           this.editingKey = '';
           
         }
@@ -106,7 +106,7 @@ class ContactStore {
       const newContact = await contactDataService.addContact(name, phone, email);
       newContacts[index] = newContact;
       runInAction(() => {
-        this.contacts = newContacts;
+        this.contacts = this.sortByName(newContacts);
         this.state = "done";
       })
     } catch(err) {
@@ -114,7 +114,7 @@ class ContactStore {
       runInAction(() => {
         this.state = 'error';
         this.stateMessage = errorDataService.getErrorMessage(err)
-        this.contacts = newContacts;
+        this.contacts = this.sortByName(newContacts);
         console.log(err)
       })
     } finally {
@@ -149,6 +149,12 @@ class ContactStore {
   }
   setAlertIsVisible = (bool: boolean) => {
     this.alertIsVisible = bool;
+  }
+
+  sortByName = (contacts: Contact[]) => {
+    return contacts.sort((a,b) => {
+      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 0;
+    })
   }
   
   get isSearch() {
