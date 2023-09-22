@@ -157,7 +157,15 @@ class ContactStore {
   get isEdit() {
     return this.editingKey !== '';
   } 
-  
+  get foundContacts(): Contact[]  {
+    return this.isSearch ? 
+      this.contacts.slice().filter(({id,email,name,phone}) => {
+        return email?.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1 ||
+        name?.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1 ||
+        phone?.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1 ||
+        id === 'temp'
+      }) : this.contacts
+  }
 }
 
 export default ContactStore;
