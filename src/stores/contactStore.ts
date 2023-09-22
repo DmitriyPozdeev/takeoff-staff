@@ -1,13 +1,14 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import contactDataService, { Contact } from '../services/contact.service';
 import errorDataService from "../services/error.service";
+import { LoadState } from "../types/sharedTypes";
 
 class ContactStore {
   contacts: Contact[] = [];
-  currentOperation?: string = '';
+  currentOperation? = '';
   searchValue = '';
-  state = 'done';
-  stateMessage: string = ''
+  state: LoadState = 'done';
+  stateMessage = ''
   editingKey = '';
   tablePage = 1;
   rowsOnPage = 10;

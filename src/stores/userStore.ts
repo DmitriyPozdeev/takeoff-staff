@@ -2,14 +2,15 @@ import {makeAutoObservable, runInAction} from "mobx";
 import { User, UserResponse } from "../services/user.service";
 import userDataService from '../services/user.service';
 import errorDataService from "../services/error.service";
+import { LoadState } from "../types/sharedTypes";
 
 class UserStore {
   userData?: UserResponse;
   user?: User;
-  state = 'done';
-  checkState = 'done';
+  state: LoadState = 'done';
+  checkState: LoadState = 'done';
   accessToken = '';
-  errorMessage: string = '';
+  errorMessage = '';
   
   constructor () {
     makeAutoObservable(this)
@@ -66,7 +67,7 @@ class UserStore {
     })
     
   }
-  setState = (state: string) => {
+  setState = (state: LoadState) => {
     this.state = state;
   }
 
