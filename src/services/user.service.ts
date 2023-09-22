@@ -27,7 +27,8 @@ class UserDataService {
   async check() { 
     const token: string | null = localStorage.getItem('accessToken');
     const decodedToken: DecodedToken = token ? jwt_decode(token) : '';
-    return (await authHost.get<User>(`/users/${decodedToken.sub}`)).data;
+    const currentUserId = decodedToken.sub;
+    return (await authHost.get<User>(`/users/${currentUserId}`)).data;
   }
 };
 const userDataService = new UserDataService();
