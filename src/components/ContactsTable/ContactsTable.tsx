@@ -92,6 +92,10 @@ const ContactsTable: FC<Props> = ({form}) => {
       }),
     };
   });
+  const onPageChange = (page: number) => {
+    setEditingKey('')
+    setTablePage(page)
+  } 
   return (
     <Form 
       form={form} 
@@ -111,10 +115,7 @@ const ContactsTable: FC<Props> = ({form}) => {
         }}
         dataSource={foundContacts}
         pagination={{
-          onChange: (page) => {
-            setEditingKey('')
-            setTablePage(page)
-          },
+          onChange: onPageChange,
           pageSize: rowsOnPage,
           current: tablePage,
           disabled: isEdit,
